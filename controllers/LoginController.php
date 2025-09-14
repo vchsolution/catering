@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     public function actionIndex()
     {
-        $this->layout = false;
+        $this->layout = 'login';
         return $this->render('index');
     }
 }

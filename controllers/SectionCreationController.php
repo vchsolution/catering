@@ -13,7 +13,6 @@ class SectionCreationController extends Controller
      */
     public function actionCreate()
     {
-        $this->layout = false;
         return $this->render('create');
     }
 }
