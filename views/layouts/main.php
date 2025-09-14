@@ -375,8 +375,7 @@ use yii\helpers\Html;
     <?php $this->endBody() ?>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Kelola semua elemen dropdown yang ditemukan
-            document.querySelectorAll('.select-box[data-dropdown="true"]').forEach(selectBox => {
+            function initDropdown(selectBox) {
                 const dropdownList = selectBox.nextElementSibling;
                 const inputField = selectBox.querySelector('input');
                 const originalOptions = Array.from(dropdownList.children);
@@ -384,16 +383,12 @@ use yii\helpers\Html;
                 // Toggle dropdown saat diklik
                 selectBox.addEventListener('click', (event) => {
                     event.stopPropagation();
-                    
+        
                     document.querySelectorAll('.dropdown-list').forEach(list => {
-                        if (list !== dropdownList) {
-                            list.style.display = 'none';
-                        }
+                        if (list !== dropdownList) list.style.display = 'none';
                     });
                     document.querySelectorAll('.select-box').forEach(sb => {
-                        if (sb !== selectBox) {
-                            sb.classList.remove('is-focused');
-                        }
+                        if (sb !== selectBox) sb.classList.remove('is-focused');
                     });
         
                     document.body.appendChild(dropdownList);
@@ -403,11 +398,11 @@ use yii\helpers\Html;
                         selectBox.classList.remove('is-focused');
                     } else {
                         const rect = selectBox.getBoundingClientRect();
-                        
+        
                         dropdownList.style.top = `${rect.bottom + 4}px`;
                         dropdownList.style.left = `${rect.left}px`;
                         dropdownList.style.width = `${rect.width}px`;
-                        
+        
                         originalOptions.forEach(option => option.style.display = '');
         
                         dropdownList.style.display = 'block';
@@ -415,7 +410,7 @@ use yii\helpers\Html;
                     }
                 });
         
-                // Tangani filter saat input diketik
+                // Filter saat input diketik
                 inputField.addEventListener('input', (event) => {
                     const searchText = event.target.value.toLowerCase();
                     let hasVisibleOption = false;
@@ -430,25 +425,19 @@ use yii\helpers\Html;
                         }
                     });
         
-                    if (hasVisibleOption) {
-                        dropdownList.style.display = 'block';
-                    } else {
-                        dropdownList.style.display = 'none';
-                    }
-        
+                    dropdownList.style.display = hasVisibleOption ? 'block' : 'none';
                     selectBox.classList.add('is-focused');
                 });
         
-                // Event blur untuk mengosongkan input jika tidak ada kecocokan
+                // Blur → reset kalau tidak cocok
                 inputField.addEventListener('blur', (event) => {
                     const value = event.target.value;
-                    // Cek apakah nilai input kosong atau tidak cocok dengan opsi yang ada
                     if (value && !originalOptions.some(option => option.textContent === value)) {
                         event.target.value = '';
                     }
                 });
         
-                // Tangani pemilihan item
+                // Pilih item
                 dropdownList.addEventListener('click', (event) => {
                     if (event.target.tagName === 'LI') {
                         const selectedText = event.target.textContent;
@@ -457,9 +446,12 @@ use yii\helpers\Html;
                         selectBox.classList.remove('is-focused');
                     }
                 });
-            });
+            }
         
-            // Fungsi untuk menutup semua dropdown dan menghapus kelas fokus
+            // Init dropdown untuk yang sudah ada di DOM
+            document.querySelectorAll('.select-box[data-dropdown="true"]').forEach(initDropdown);
+        
+            // Fungsi global untuk menutup dropdown
             const closeAllDropdowns = () => {
                 document.querySelectorAll('.dropdown-list').forEach(list => {
                     list.style.display = 'none';
@@ -467,7 +459,7 @@ use yii\helpers\Html;
                 document.querySelectorAll('.select-box').forEach(sb => sb.classList.remove('is-focused'));
             };
         
-            // --- Event Listeners Global untuk Menutup Dropdown ---
+            // Event global
             document.addEventListener('click', (event) => {
                 const isInsideDropdown = event.target.closest('.dropdown-list');
                 const isInsideSelectBox = event.target.closest('.select-box[data-dropdown="true"]');
@@ -475,16 +467,15 @@ use yii\helpers\Html;
                     closeAllDropdowns();
                 }
             });
-        
             document.addEventListener('scroll', closeAllDropdowns, true);
             window.addEventListener('resize', closeAllDropdowns);
             document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape') {
-                    closeAllDropdowns();
-                }
+                if (event.key === 'Escape') closeAllDropdowns();
             });
-        
             window.addEventListener('blur', closeAllDropdowns);
+        
+            // 🔑 Hook supaya bisa dipanggil setelah addRowComplimentary
+            window.initDropdown = initDropdown;
         });
     </script>
     <?php if (isset($this->blocks['scripts'])): ?>

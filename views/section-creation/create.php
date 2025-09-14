@@ -121,8 +121,8 @@ $this->title = 'Section Creation';
                 </div>
             </div>
 
-            <div class="mt-6 lg:mt-0 w-full lg:w-1/3 h-[500px] flex items-center justify-center p-6 border-2 border-dashed border-green-400 rounded-lg text-center bg-gray-100">
-                <div class="flex flex-col items-center text-center">
+            <div id="upload-image" class="mt-6 lg:mt-0 w-full lg:w-1/3 h-[500px] flex items-center justify-center p-6 border-2 border-dashed border-green-400 rounded-lg text-center bg-gray-100">
+                <div id="upload-content" class="flex flex-col items-center text-center">
                     <span>
                         <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_2_9022)">
@@ -143,10 +143,11 @@ $this->title = 'Section Creation';
                         <br>(maks. 5 mb)
                     </p>
                 </div>
+                <input type="file" id="file-input" accept="image/png, image/jpeg" class="hidden">
             </div>
         </div>
         <div class="mt-6 flex">
-            <div class="bg-white rounded-lg w-full">
+            <div class="bg-white rounded-lg w-full" id="component-ingredient">
                 <h3 class="text-lg font-semibold text-gray-800 mb-8">Main Ingredient</h3>
                 
                 <div class="overflow-x-auto">
@@ -222,69 +223,27 @@ $this->title = 'Section Creation';
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="py-4 px-2 whitespace-nowrap relative">
-                                    <div class="custom-select-container">
-                                        <div class="select-box" data-dropdown="true">
-                                            <input type="text" />
-                                            <span class="dropdown-icon">
-                                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                                </svg>
-                                            </span>
+                        <tbody class="bg-gray-100 divide-y divide-gray-200" id="table-body-ingredient">
+                            <tr class="empty-row">
+                                <td class="py-4 px-2 whitespace-nowrap text-right text-sm font-medium" colspan="13">
+                                    <div class="w-full flex justify-center items-center p-2">
+                                        <div>
+                                            <span class="text-gray-600">No selection has been made yet</span>
+                                            <button type="button" onclick="addRowIngredient()" class="mt-4 flex items-center px-4 py-2 border border-[#197953] text-[#197953] rounded-md mx-auto hover:bg-green-700 hover:text-white transition">
+                                                <i class="fas fa-circle-plus mr-2"></i>
+                                                Add
+                                            </button>
                                         </div>
-                                        <ul class="dropdown-list">
-                                            <li>Bawang Putih</li>
-                                            <li>Gula Pasir</li>
-                                            <li>Bombai</li>
-                                            <li>Daun Bawang</li>
-                                        </ul>
                                     </div>
-                                </td>
-                                <td class="py-4 px-2 whitespace-nowrap">
-                                    <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
-                                        <input type="text" class="w-full outline-none sm:text-sm">
-                                    </div>
-                                </td>
-                                <td class="py-4 px-2 whitespace-nowrap">
-                                    <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
-                                        <input type="text" class="w-full outline-none sm:text-sm">
-                                    </div>
-                                </td>
-                                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
-                                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
-                                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
-                                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
-                                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
-                                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
-                                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
-                                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
-                                <td class="py-4 px-2 whitespace-nowrap">
-                                    <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
-                                        <input type="text" class="w-full outline-none sm:text-sm">
-                                    </div>
-                                </td>
-                                <td class="py-4 px-2 whitespace-nowrap text-right text-sm font-medium">
-                                    <button type="button" class="text-gray-400 hover:text-red-500">
-                                        <i class="fa-regular fa-trash-alt text-xl"></i>
-                                    </button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                
-                <div class="flex justify-end mt-4">
-                    <button type="button" class="flex items-center px-4 py-2 border border-[#197953] text-[#197953] rounded-md hover:bg-green-700 hover:text-white transition">
-                        <i class="fas fa-circle-plus mr-2"></i>
-                        Add
-                    </button>
-                </div>
             </div>
         </div>
         <div class="mt-6 flex">
-            <div class="bg-white rounded-lg w-full">
+            <div class="bg-white rounded-lg w-full" id="component-complimentary">
                 <h3 class="text-lg font-semibold text-gray-800 mb-8">Complimentary</h3>
                 
                 <div class="overflow-x-auto">
@@ -360,13 +319,13 @@ $this->title = 'Section Creation';
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="bg-gray-100 divide-y divide-gray-200 ">
-                            <tr>
+                        <tbody class="bg-gray-100 divide-y divide-gray-200" id="table-body-complimentary">
+                            <tr class="empty-row">
                                 <td class="py-4 px-2 whitespace-nowrap text-right text-sm font-medium" colspan="13">
                                     <div class="w-full flex justify-center items-center p-2">
                                         <div>
                                             <span class="text-gray-600">No selection has been made yet</span>
-                                            <button type="button" class="mt-4 flex items-center px-4 py-2 border border-[#197953] text-[#197953] rounded-md mx-auto hover:bg-green-700 hover:text-white transition">
+                                            <button type="button" onclick="addRowComplimentary()" class="mt-4 flex items-center px-4 py-2 border border-[#197953] text-[#197953] rounded-md mx-auto hover:bg-green-700 hover:text-white transition">
                                                 <i class="fas fa-circle-plus mr-2"></i>
                                                 Add
                                             </button>
@@ -446,6 +405,258 @@ $this->title = 'Section Creation';
 
 <?php $this->beginBlock('scripts'); ?>
 <script>
+    const tableBodyComplimentary = document.getElementById("table-body-complimentary");
+    const componentComplimentary = document.getElementById("component-complimentary");
+    const tableBodyIngredient = document.getElementById("table-body-ingredient");
+    const componentIngredient = document.getElementById("component-ingredient");
+
+    function addRowComplimentary() {
+        const emptyRow = tableBodyComplimentary.querySelector(".empty-row");
+        if (emptyRow) {
+            emptyRow.remove();
+            tableBodyComplimentary.classList.remove("bg-gray-100");
+            tableBodyComplimentary.classList.add("bg-white");
+        }
     
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td class="py-4 px-2 whitespace-nowrap relative">
+                <div class="custom-select-container">
+                    <div class="select-box" data-dropdown="true">
+                        <input type="text" />
+                        <span class="dropdown-icon">
+                            <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </span>
+                    </div>
+                    <ul class="dropdown-list">
+                        <li>Bawang Putih</li>
+                        <li>Gula Pasir</li>
+                        <li>Bombai</li>
+                        <li>Daun Bawang</li>
+                    </ul>
+                </div>
+                </td>
+                <td class="py-4 px-2 whitespace-nowrap">
+                <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
+                    <input type="text" class="w-full outline-none sm:text-sm">
+                </div>
+                </td>
+                <td class="py-4 px-2 whitespace-nowrap">
+                <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
+                    <input type="text" class="w-full outline-none sm:text-sm">
+                </div>
+                </td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap">
+                <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
+                    <input type="text" class="w-full outline-none sm:text-sm">
+                </div>
+                </td>
+                <td class="py-4 px-2 whitespace-nowrap text-right text-sm font-medium">
+                <button type="button" onclick="deleteRowComplimentary(this)"  class="text-gray-400 hover:text-red-500">
+                    <i class="fa-regular fa-trash-alt text-xl"></i>
+                </button>
+                </td>
+        `;
+
+        tableBodyComplimentary.appendChild(tr);
+        const newSelectBox = tr.querySelector('.select-box[data-dropdown="true"]');
+        if (newSelectBox) {
+            initDropdown(newSelectBox);
+        }
+
+        if (!document.getElementById("add-complimentary")) {
+            const div = document.createElement("div");
+            div.id = "add-complimentary";
+            div.className = "flex justify-end mt-4";
+            div.innerHTML = `
+                <button type="button" onclick="addRowComplimentary()" class="flex items-center px-4 py-2 border border-[#197953] text-[#197953] rounded-md hover:bg-green-700 hover:text-white transition">
+                    <i class="fas fa-circle-plus mr-2"></i>Add
+                </button>
+            `;
+            componentComplimentary.appendChild(div);
+        }
+    }
+
+    function deleteRowComplimentary(btn) {
+        const row = btn.closest("tr");
+        row.remove();
+
+        if (tableBodyComplimentary.children.length === 0) {
+            tableBodyComplimentary.classList.remove("bg-white");
+            tableBodyComplimentary.classList.add("bg-gray-100");
+
+            const emptyRow = document.createElement("tr");
+            emptyRow.classList.add("empty-row");
+            emptyRow.innerHTML = `
+                <td class="py-4 px-2 whitespace-nowrap text-right text-sm font-medium" colspan="13">
+                    <div class="w-full flex justify-center items-center p-2">
+                        <div>
+                            <span class="text-gray-600">No selection has been made yet</span>
+                            <button type="button" onclick="addRowComplimentary()" class="mt-4 flex items-center px-4 py-2 border border-[#197953] text-[#197953] rounded-md mx-auto hover:bg-green-700 hover:text-white transition">
+                                <i class="fas fa-circle-plus mr-2"></i>
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            `;
+            tableBodyComplimentary.appendChild(emptyRow);
+            const addDiv = componentComplimentary.querySelector("#add-complimentary");
+            if (addDiv) addDiv.remove();
+        }
+    }
+
+    function addRowIngredient() {
+        const emptyRow = tableBodyIngredient.querySelector(".empty-row");
+        if (emptyRow) {
+            emptyRow.remove();
+            tableBodyIngredient.classList.remove("bg-gray-100");
+            tableBodyIngredient.classList.add("bg-white");
+        }
+    
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td class="py-4 px-2 whitespace-nowrap relative">
+                <div class="custom-select-container">
+                    <div class="select-box" data-dropdown="true">
+                        <input type="text" />
+                        <span class="dropdown-icon">
+                            <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </span>
+                    </div>
+                    <ul class="dropdown-list">
+                        <li>Bawang Putih</li>
+                        <li>Gula Pasir</li>
+                        <li>Bombai</li>
+                        <li>Daun Bawang</li>
+                    </ul>
+                </div>
+                </td>
+                <td class="py-4 px-2 whitespace-nowrap">
+                <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
+                    <input type="text" class="w-full outline-none sm:text-sm">
+                </div>
+                </td>
+                <td class="py-4 px-2 whitespace-nowrap">
+                <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
+                    <input type="text" class="w-full outline-none sm:text-sm">
+                </div>
+                </td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
+                <td class="py-4 px-2 whitespace-nowrap">
+                <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
+                    <input type="text" class="w-full outline-none sm:text-sm">
+                </div>
+                </td>
+                <td class="py-4 px-2 whitespace-nowrap text-right text-sm font-medium">
+                <button type="button" onclick="deleteRowIngredient(this)"  class="text-gray-400 hover:text-red-500">
+                    <i class="fa-regular fa-trash-alt text-xl"></i>
+                </button>
+                </td>
+        `;
+
+        tableBodyIngredient.appendChild(tr);
+        const newSelectBox = tr.querySelector('.select-box[data-dropdown="true"]');
+        if (newSelectBox) {
+            initDropdown(newSelectBox);
+        }
+
+        if (!document.getElementById("add-ingredient")) {
+            const div = document.createElement("div");
+            div.id = "add-ingredient";
+            div.className = "flex justify-end mt-4";
+            div.innerHTML = `
+                <button type="button" onclick="addRowIngredient()" class="flex items-center px-4 py-2 border border-[#197953] text-[#197953] rounded-md hover:bg-green-700 hover:text-white transition">
+                    <i class="fas fa-circle-plus mr-2"></i>Add
+                </button>
+            `;
+            componentIngredient.appendChild(div);
+        }
+    }
+
+    function deleteRowIngredient(btn) {
+        const row = btn.closest("tr");
+        row.remove();
+
+        if (tableBodyIngredient.children.length === 0) {
+            tableBodyIngredient.classList.remove("bg-white");
+            tableBodyIngredient.classList.add("bg-gray-100");
+
+            const emptyRow = document.createElement("tr");
+            emptyRow.classList.add("empty-row");
+            emptyRow.innerHTML = `
+                <td class="py-4 px-2 whitespace-nowrap text-right text-sm font-medium" colspan="13">
+                    <div class="w-full flex justify-center items-center p-2">
+                        <div>
+                            <span class="text-gray-600">No selection has been made yet</span>
+                            <button type="button" onclick="addRowIngredient()" class="mt-4 flex items-center px-4 py-2 border border-[#197953] text-[#197953] rounded-md mx-auto hover:bg-green-700 hover:text-white transition">
+                                <i class="fas fa-circle-plus mr-2"></i>
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            `;
+            tableBodyIngredient.appendChild(emptyRow);
+            const addDiv = componentIngredient.querySelector("#add-ingredient");
+            if (addDiv) addDiv.remove();
+        }
+    }
+
+    const uploadBox = document.getElementById("upload-image");
+    const fileInput = document.getElementById("file-input");
+    const uploadContent = document.getElementById("upload-content");
+
+    uploadBox.addEventListener("click", () => fileInput.click());
+    
+    fileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+    
+        if (file.size > 5 * 1024 * 1024) { 
+            alert("Ukuran file maksimal 5MB");
+            fileInput.value = "";
+            return;
+        }
+    
+        if (!["image/jpeg", "image/png"].includes(file.type)) {
+            alert("Format harus JPG atau PNG");
+            fileInput.value = "";
+            return;
+        }
+    
+        uploadBox.innerHTML = "";
+        const wrapper = document.createElement("div");
+        wrapper.className = "w-full h-full flex items-center justify-center";
+    
+        const preview = document.createElement("img");
+        preview.src = URL.createObjectURL(file);
+        preview.className = "object-cover rounded-lg";
+        preview.style.aspectRatio = "3 / 4";
+        preview.style.maxHeight = "100%";
+        preview.style.maxWidth = "100%";
+    
+        wrapper.appendChild(preview);
+        uploadBox.appendChild(wrapper);
+    });
 </script>
 <?php $this->endBlock(); ?>
