@@ -402,11 +402,11 @@ $this->title = 'Section Creation';
                     </div>
                     <div class="p-4 w-24 border-r border-gray-300 h-full text-center">
                         <p class="text-xs text-gray-500">Natrium</p>
-                        <p class="text-sm font-bold text-gray-800 mt-2">0 gr</p>
+                        <p class="text-sm font-bold text-gray-800 mt-2">0 mg</p>
                     </div>
                     <div class="p-4 w-24 border-r border-gray-300 h-full text-center">
                         <p class="text-xs text-gray-500">Kolesterol</p>
-                        <p class="text-sm font-bold text-gray-800 mt-2">0 gr</p>
+                        <p class="text-sm font-bold text-gray-800 mt-2">0 mg</p>
                     </div>
                     <div class="p-4 w-24 border-gray-300 h-full text-center">
                         <p class="text-xs text-gray-500">Gula</p>
