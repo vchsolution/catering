@@ -30,7 +30,73 @@ use yii\helpers\Html;
                 margin-right: 3px;
                 font-size: 18px;
             }
+
+            .custom-select-container {
+                width: 100%;
+            }
+            
+            .select-box {
+                display: flex;
+                align-items: center;
+                border: 1px solid #d1d5db;
+                border-radius: 6px;
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+                padding: 8px 12px;
+                background-color: #fff;
+                cursor: pointer;
+            }
+            
+            .select-box input {
+                flex-grow: 1;
+                border: none;
+                outline: none;
+                font-size: 14px;
+                padding: 0;
+                cursor: pointer;
+            }
+            
+            .dropdown-list {
+                position: fixed; /* Kunci: Mengabaikan overflow-x-auto */
+                background-color: #fff;
+                border: 1px solid #d1d5db;
+                border-radius: 6px;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                list-style: none;
+                padding: 8px 0;
+                z-index: 9999;
+                display: none;
+                margin-top: 15px;
+            }
+            
+            .dropdown-list li {
+                padding: 10px 12px;
+                font-size: 14px;
+                color: #374151;
+                cursor: pointer;
+                transition: background-color 0.1s;
+            }
+            
+            .dropdown-list li:hover {
+                background-color: #e5e7eb;
+            }
+            
+            /* Gaya lainnya */
+            .select-box.is-focused {
+                border-color: #197953; /* Green-600 */
+                box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.5); /* Focus ring effect */
+            }
+            
+            .dropdown-icon {
+                margin-left: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #9ca3af;
+            }
         </style>
+        <?php if (isset($this->blocks['styles'])): ?>
+            <?= $this->blocks['styles'] ?>
+        <?php endif; ?>
     </head>
     <body>
     <?php $this->beginBody() ?>
@@ -307,6 +373,99 @@ use yii\helpers\Html;
         </div>
 
     <?php $this->endBody() ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+           // Kelola semua elemen dropdown yang ditemukan
+           document.querySelectorAll('.select-box[data-dropdown="true"]').forEach(selectBox => {
+               const dropdownList = selectBox.nextElementSibling;
+               const inputField = selectBox.querySelector('input');
+               
+               // Toggle dropdown saat diklik
+               selectBox.addEventListener('click', (event) => {
+                   event.stopPropagation();
+                   
+                   // Sembunyikan semua dropdown dan hapus fokus dari semua select-box
+                   document.querySelectorAll('.dropdown-list').forEach(list => {
+                       if (list !== dropdownList) {
+                           list.style.display = 'none';
+                       }
+                   });
+                   document.querySelectorAll('.select-box').forEach(sb => {
+                       if (sb !== selectBox) {
+                           sb.classList.remove('is-focused');
+                       }
+                   });
+       
+                   // Memindahkan dropdown ke body untuk menghindari masalah overflow dan konteks positioning
+                   document.body.appendChild(dropdownList);
+       
+                   // Periksa apakah dropdown sudah terbuka, lalu tutup atau buka
+                   if (dropdownList.style.display === 'block') {
+                       dropdownList.style.display = 'none';
+                       selectBox.classList.remove('is-focused');
+                   } else {
+                       const rect = selectBox.getBoundingClientRect();
+                       
+                       // Atur posisi dan lebar dropdown menggunakan nilai dari rect.
+                       dropdownList.style.top = `${rect.bottom + 4}px`;
+                       dropdownList.style.left = `${rect.left}px`;
+                       dropdownList.style.width = `${rect.width}px`;
+                       
+                       dropdownList.style.display = 'block';
+                       selectBox.classList.add('is-focused');
+                   }
+               });
+       
+               // Tangani pemilihan item
+               dropdownList.addEventListener('click', (event) => {
+                   if (event.target.tagName === 'LI') {
+                       const selectedText = event.target.textContent;
+                       inputField.value = selectedText;
+                       dropdownList.style.display = 'none';
+                       selectBox.classList.remove('is-focused');
+                   }
+               });
+           });
+       
+           // Fungsi untuk menutup semua dropdown dan menghapus kelas fokus
+           const closeAllDropdowns = () => {
+               document.querySelectorAll('.dropdown-list').forEach(list => {
+                   list.style.display = 'none';
+               });
+               document.querySelectorAll('.select-box').forEach(sb => sb.classList.remove('is-focused'));
+           };
+       
+           // --- Event Listeners Global untuk Menutup Dropdown ---
+       
+           // Menutup dropdown saat klik di luar area
+           document.addEventListener('click', (event) => {
+               const isInsideDropdown = event.target.closest('.dropdown-list');
+               const isInsideSelectBox = event.target.closest('.select-box[data-dropdown="true"]');
+               if (!isInsideDropdown && !isInsideSelectBox) {
+                   closeAllDropdowns();
+               }
+           });
+       
+           // Menutup dropdown saat ada scroll pada halaman atau elemen manapun
+           document.addEventListener('scroll', closeAllDropdowns, true);
+       
+           // Menutup dropdown saat ukuran jendela (window) diubah (resize)
+           window.addEventListener('resize', closeAllDropdowns);
+       
+           // Menutup dropdown saat tombol 'Escape' ditekan
+           document.addEventListener('keydown', (event) => {
+               if (event.key === 'Escape') {
+                   closeAllDropdowns();
+               }
+           });
+       
+           // Menutup dropdown saat jendela kehilangan fokus (contoh: klik address bar, pindah tab, klik console)
+           window.addEventListener('blur', closeAllDropdowns);
+       });
+    </script>
+    <?php if (isset($this->blocks['scripts'])): ?>
+        <?= $this->blocks['scripts'] ?>
+    <?php endif; ?>
     </body>
 </html>
 <?php $this->endPage() ?>

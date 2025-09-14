@@ -225,28 +225,32 @@ $this->title = 'Section Creation';
                         <tbody class="bg-white divide-y divide-gray-200">
                             <tr>
                                 <td class="py-4 px-2 whitespace-nowrap relative">
-                                    <select class="w-full rounded-md shadow-sm p-2 pr-8 border border-gray-300 focus:border-green-600 focus:ring-green-600 sm:text-sm appearance-none">
-                                        <option>-</option>
-                                        <option>Bawang Putih</option>
-                                        <option>Gula Pasir</option>
-                                        <option>Bombai</option>
-                                        <option>Daun Bawang</option>
-                                        <option>Minyak Goreng</option>
-                                        <option>Masako Ayam @1kg</option>
-                                        <option>Wijen Putih</option>
-                                        <option>Aida Bubuk @500gr</option>
-                                    </select>
-                                    <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center mr-2">
-                                        <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
+                                    <div class="custom-select-container">
+                                        <div class="select-box" data-dropdown="true">
+                                            <input type="text" readonly />
+                                            <span class="dropdown-icon">
+                                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <ul class="dropdown-list">
+                                            <li>Bawang Putih</li>
+                                            <li>Gula Pasir</li>
+                                            <li>Bombai</li>
+                                            <li>Daun Bawang</li>
+                                        </ul>
                                     </div>
                                 </td>
                                 <td class="py-4 px-2 whitespace-nowrap">
-                                    <input type="text" class="w-full rounded-md shadow-sm p-2 border border-gray-300 focus:border-green-600 focus:ring-green-600 sm:text-sm">
+                                    <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
+                                        <input type="text" class="w-full outline-none sm:text-sm">
+                                    </div>
                                 </td>
                                 <td class="py-4 px-2 whitespace-nowrap">
-                                    <input type="text" class="w-full rounded-md shadow-sm p-2 border border-gray-300 focus:border-green-600 focus:ring-green-600 sm:text-sm">
+                                    <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
+                                        <input type="text" class="w-full outline-none sm:text-sm">
+                                    </div>
                                 </td>
                                 <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
                                 <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
@@ -257,7 +261,9 @@ $this->title = 'Section Creation';
                                 <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
                                 <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
                                 <td class="py-4 px-2 whitespace-nowrap">
-                                    <input type="text" class="w-full rounded-md shadow-sm p-2 border border-gray-300 focus:border-green-600 focus:ring-green-600 sm:text-sm">
+                                    <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
+                                        <input type="text" class="w-full outline-none sm:text-sm">
+                                    </div>
                                 </td>
                                 <td class="py-4 px-2 whitespace-nowrap text-right text-sm font-medium">
                                     <button type="button" class="text-gray-400 hover:text-red-500">
@@ -431,3 +437,15 @@ $this->title = 'Section Creation';
         </div>
     </div>
 </div>
+
+<?php $this->beginBlock('styles'); ?>
+<style>
+    
+</style>
+<?php $this->endBlock(); ?>
+
+<?php $this->beginBlock('scripts'); ?>
+<script>
+    
+</script>
+<?php $this->endBlock(); ?>
