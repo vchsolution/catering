@@ -227,7 +227,7 @@ $this->title = 'Section Creation';
                                 <td class="py-4 px-2 whitespace-nowrap relative">
                                     <div class="custom-select-container">
                                         <div class="select-box" data-dropdown="true">
-                                            <input type="text" readonly />
+                                            <input type="text" />
                                             <span class="dropdown-icon">
                                                 <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
