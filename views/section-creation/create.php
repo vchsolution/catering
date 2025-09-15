@@ -380,12 +380,12 @@ $this->title = 'Section Creation';
                     
                 </div>
 
-                <div class="flex items-center flex-wrap gap-y-4 bg-gray-100 border border-gray-300 rounded-lg">
-                    <div class="p-6 w-80 h-full">
+                <div class="flex items-center justify-between flex-wrap gap-y-4 bg-gray-100 border border-gray-300 rounded-lg">
+                    <div class="p-6 h-full">
                         <h4 class="text-lg font-bold"> <i class="fa-solid fa-coins text-[#F16251] mr-4"></i></i>Food Cost</h4>
                     </div>
-                    <div class="p-6 w-40 h-full text-center">
-                        <h4 class="text-lg font-bold">Rp 0 <span class="font-bold text-green-700 bg-green-100 rounded-full px-3 py-1 ml-2">Low</span></h4>
+                    <div class="p-6 h-full text-center">
+                        <h4 class="text-lg font-bold" id="total-cost">Rp 0 <span class="font-bold text-green-700 bg-green-100 rounded-full px-3 py-1 ml-2">Low</span></h4>
                     </div>
                 </div>
             </div>
@@ -409,102 +409,112 @@ $this->title = 'Section Creation';
     const componentComplimentary = document.getElementById("component-complimentary");
     const tableBodyIngredient = document.getElementById("table-body-ingredient");
     const componentIngredient = document.getElementById("component-ingredient");
+    let ingredientRowCounter = 0;
+    
     const items = [
         {
-            "name" : "Bawang Putih",
-            "price" : 11000,
-            "energi" : 144.9,
-            "protein" : 5.0,
-            "karbo" : 27.2,
-            "lemak" : 1.6,
-            "serat" : 10.58,
-            "natrium" : 161.3,
-            "kolesterol" : 0.0,
-            "gula" : 0.0,
+            name: "Bawang Putih",
+            price: 12000,
+            unit: "g",
+            energi: 145.3,
+            protein: 4.8,
+            karbo: 26.5,
+            lemak: 1.7,
+            serat: 11.0,
+            natrium: 160.5,
+            kolesterol: 0.0,
+            gula: 0.1,
         },
         {
-            "name" : "Gula Pasir",
-            "price" : 11000,
-            "energi" : 144.9,
-            "protein" : 5.0,
-            "karbo" : 27.2,
-            "lemak" : 1.6,
-            "serat" : 10.58,
-            "natrium" : 161.3,
-            "kolesterol" : 0.0,
-            "gula" : 0.0,
+            name: "Gula Pasir",
+            price: 15000,
+            unit: "g",
+            energi: 387.0,
+            protein: 0.0,
+            karbo: 99.8,
+            lemak: 0.0,
+            serat: 0.0,
+            natrium: 1.0,
+            kolesterol: 0.0,
+            gula: 99.8,
         },
         {
-            "name" : "Bombai",
-            "price" : 11000,
-            "energi" : 144.9,
-            "protein" : 5.0,
-            "karbo" : 27.2,
-            "lemak" : 1.6,
-            "serat" : 10.58,
-            "natrium" : 161.3,
-            "kolesterol" : 0.0,
-            "gula" : 0.0,
+            name: "Bombai",
+            price: 8000,
+            unit: "g",
+            energi: 40.0,
+            protein: 1.1,
+            karbo: 9.3,
+            lemak: 0.1,
+            serat: 1.2,
+            natrium: 4.0,
+            kolesterol: 0.0,
+            gula: 4.7,
         },
         {
-            "name" : "Daun Bawang",
-            "price" : 11000,
-            "energi" : 144.9,
-            "protein" : 5.0,
-            "karbo" : 27.2,
-            "lemak" : 1.6,
-            "serat" : 10.58,
-            "natrium" : 161.3,
-            "kolesterol" : 0.0,
-            "gula" : 0.0,
+            name: "Daun Bawang",
+            price: 7000,
+            unit: "g",
+            energi: 32.0,
+            protein: 1.8,
+            karbo: 7.3,
+            lemak: 0.2,
+            serat: 2.1,
+            natrium: 5.0,
+            kolesterol: 0.0,
+            gula: 0.6,
         },
         {
-            "name" : "Minyak Goreng",
-            "price" : 11000,
-            "energi" : 144.9,
-            "protein" : 5.0,
-            "karbo" : 27.2,
-            "lemak" : 1.6,
-            "serat" : 10.58,
-            "natrium" : 161.3,
-            "kolesterol" : 0.0,
-            "gula" : 0.0,
+            name: "Minyak Goreng",
+            price: 25000,
+            unit: "g",
+            energi: 884.0,
+            protein: 0.0,
+            karbo: 0.0,
+            lemak: 100.0,
+            serat: 0.0,
+            natrium: 0.0,
+            kolesterol: 0.0,
+            gula: 0.0,
         },
         {
-            "name" : "Masako Ayam @1kg",
-            "price" : 11000,
-            "energi" : 144.9,
-            "protein" : 5.0,
-            "karbo" : 27.2,
-            "lemak" : 1.6,
-            "serat" : 10.58,
-            "natrium" : 161.3,
-            "kolesterol" : 0.0,
-            "gula" : 0.0,
+            name: "Masako Ayam @1kg",
+            price: 18000,
+            unit: "g",
+            energi: 375.0,
+            protein: 10.0,
+            karbo: 45.0,
+            lemak: 15.0,
+            serat: 2.0,
+            natrium: 800.0,
+            kolesterol: 0.0,
+            gula: 5.0,
         },
         {
-            "name" : "Wijen Putih",
-            "price" : 11000,
-            "energi" : 144.9,
-            "protein" : 5.0,
-            "karbo" : 27.2,
-            "lemak" : 1.6,
-            "serat" : 10.58,
-            "natrium" : 161.3,
-            "kolesterol" : 0.0,
-            "gula" : 0.0,
+            name: "Wijen Putih",
+            price: 14000,
+            unit: "g",
+            energi: 573.0,
+            protein: 17.7,
+            karbo: 23.0,
+            lemak: 49.7,
+            serat: 12.2,
+            natrium: 11.0,
+            kolesterol: 0.0,
+            gula: 0.3,
         },
         {
-            "name" : "Aida Bubuk @500gr",
-            "price" : 11000,
-            "energi" : 144.9,
-            "protein" : 5.0,
-            "karbo" : 27.2,
-            "lemak" : 1.6,
-            "serat" : 10.58,
-            "natrium" : 161.3,
-            "kolesterol" : 0.0,
-            "gula" : 0.0,
+            name: "Aida Bubuk @500gr",
+            price: 22000,
+            unit: "g",
+            energi: 364.0,
+            protein: 7.0,
+            karbo: 76.0,
+            lemak: 1.0,
+            serat: 2.0,
+            natrium: 0.0,
+            kolesterol: 0.0,
+            gula: 70.0,
         },
     ];
 
@@ -517,6 +527,7 @@ $this->title = 'Section Creation';
         }
     
         const tr = document.createElement("tr");
+        const dropdownList = items.map(item => `<li>${item.name}</li>`).join("");
         tr.innerHTML = `
             <td class="py-4 px-2 whitespace-nowrap relative">
                 <div class="custom-select-container">
@@ -529,10 +540,7 @@ $this->title = 'Section Creation';
                         </span>
                     </div>
                     <ul class="dropdown-list">
-                        <li>Bawang Putih</li>
-                        <li>Gula Pasir</li>
-                        <li>Bombai</li>
-                        <li>Daun Bawang</li>
+                        ${dropdownList}
                     </ul>
                 </div>
                 </td>
@@ -621,35 +629,40 @@ $this->title = 'Section Creation';
             tableBodyIngredient.classList.remove("bg-gray-100");
             tableBodyIngredient.classList.add("bg-white");
         }
+
+        ingredientRowCounter++;
+        const rowId = `ingredient-row-${ingredientRowCounter}`;
+        const dropdownId = `dropdown-ingredient-${ingredientRowCounter}`;
     
         const tr = document.createElement("tr");
+        tr.id = rowId;
+
+        const dropdownList = items.map(item => `<li>${item.name}</li>`).join("");
         tr.innerHTML = `
             <td class="py-4 px-2 whitespace-nowrap relative">
                 <div class="custom-select-container">
                     <div class="select-box" data-dropdown="true">
-                        <input type="text" />
+                        <input type="text" onblur="handleBlurIngredient(event, '${rowId}')" />
                         <span class="dropdown-icon">
                             <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
                         </span>
                     </div>
-                    <ul class="dropdown-list">
-                        <li>Bawang Putih</li>
-                        <li>Gula Pasir</li>
-                        <li>Bombai</li>
-                        <li>Daun Bawang</li>
+                    <ul class="dropdown-list" id="${dropdownId}" onclick="selectItemIngredient(event, '${rowId}')">
+                        ${dropdownList}
                     </ul>
                 </div>
                 </td>
                 <td class="py-4 px-2 whitespace-nowrap">
-                <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
-                    <input type="text" class="w-full outline-none sm:text-sm">
+                <div class="flex justify-between rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
+                    <input type="text" class="w-full outline-none sm:text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, '')" onkeyup="calculatePriceIngredient(event, '${rowId}')" placeholder="0" disabled>
+                    <span></span>
                 </div>
                 </td>
                 <td class="py-4 px-2 whitespace-nowrap">
                 <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
-                    <input type="text" class="w-full outline-none sm:text-sm">
+                    <input type="text" class="w-full outline-none sm:text-sm" oninput="formatRupiah(this)" onkeyup="updateTotalCost()" placeholder="Rp 0" disabled>
                 </div>
                 </td>
                 <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
@@ -694,7 +707,7 @@ $this->title = 'Section Creation';
     function deleteRowIngredient(btn) {
         const row = btn.closest("tr");
         row.remove();
-
+        
         if (tableBodyIngredient.children.length === 0) {
             tableBodyIngredient.classList.remove("bg-white");
             tableBodyIngredient.classList.add("bg-gray-100");
@@ -717,8 +730,199 @@ $this->title = 'Section Creation';
             tableBodyIngredient.appendChild(emptyRow);
             const addDiv = componentIngredient.querySelector("#add-ingredient");
             if (addDiv) addDiv.remove();
+            ingredientRowCounter = 0;
+        }
+
+        updateTotalCost();
+    }
+
+    function selectItemIngredient(event, rowId) {
+        const li = event.target.closest("li");
+        if (!li) return;
+
+        const selectedItemName = li.textContent;
+        const selectedItem = items.find(item => item.name === selectedItemName);
+        if (!selectedItem) return;
+
+        const row = document.getElementById(rowId);
+        if (!row) return;
+
+        const cells = row.getElementsByTagName("td");
+        if (cells.length < 13) return;
+        
+        cells[1].querySelector("input").placeholder = 0;
+        cells[1].querySelector("input").disabled = false;
+        cells[1].querySelector("span").textContent = selectedItem.unit;
+        cells[2].querySelector("input").disabled = false;
+        cells[3].textContent = 0;
+        cells[4].textContent = 0;
+        cells[5].textContent = 0;
+        cells[6].textContent = 0;
+        cells[7].textContent = 0;
+        cells[8].textContent = 0;
+        cells[9].textContent = 0;
+        cells[10].textContent = 0;
+        cells[11].querySelector("input").value = ""; 
+
+        const dropdownList = row.querySelector(".dropdown-list");
+        if (dropdownList) {
+            dropdownList.style.display = "none";
         }
     }
+
+    function handleBlurIngredient(event, rowId) {
+        setTimeout(() => {
+            const value = event.target.value;
+            if (value === '') {
+                const row = document.getElementById(rowId);
+                if (!row) return;
+    
+                const cells = row.getElementsByTagName("td");
+                if (cells.length < 13) return;
+    
+                cells[1].querySelector("input").value = '';
+                cells[1].querySelector("input").disabled = true;
+                cells[2].querySelector("input").value = '';
+                cells[2].querySelector("input").disabled = true;
+                for (let i = 3; i <= 10; i++) {
+                    cells[i].textContent = '-';
+                }
+                cells[11].querySelector("input").value = '';
+            }
+        }, 0);
+    }
+
+    function calculatePriceIngredient(event, rowId) {
+        const input = event.target;
+        const row = document.getElementById(rowId);
+        if (!row) return;
+
+        const cells = row.getElementsByTagName("td");
+        if (cells.length < 13) return;
+
+        const quantity = parseFloat(input.value.replace(/[^0-9]/g, ''));
+        if (isNaN(quantity)) {
+            cells[2].querySelector('input').value = '';
+            cells[3].textContent = 0;
+            cells[4].textContent = 0;
+            cells[5].textContent = 0;
+            cells[6].textContent = 0;
+            cells[7].textContent = 0;
+            cells[8].textContent = 0;
+            cells[9].textContent = 0;
+            cells[10].textContent = 0;
+
+            updateNutrition();
+            updateTotalCost();
+            return
+        };
+
+
+        const itemName = cells[0].querySelector('input').value;
+        const selectedItem = items.find(item => item.name === itemName);
+        if (!selectedItem) return;
+
+        const pricePerUnit = selectedItem.price;
+        const totalPrice = pricePerUnit * quantity; 
+        cells[2].querySelector('input').value = `Rp ${new Intl.NumberFormat('id-ID').format(totalPrice)}`;
+
+        const energi = selectedItem.energi * quantity;
+        const protein = selectedItem.protein * quantity;
+        const karbo = selectedItem.karbo * quantity;
+        const lemak = selectedItem.lemak * quantity;
+        const serat = selectedItem.serat * quantity;
+        const natrium = selectedItem.natrium * quantity;
+        const kolesterol = selectedItem.kolesterol * quantity;
+        const gula = selectedItem.gula * quantity;
+
+        cells[3].textContent = energi.toFixed(1);
+        cells[4].textContent = protein.toFixed(1);
+        cells[5].textContent = karbo.toFixed(1);
+        cells[6].textContent = lemak.toFixed(1);
+        cells[7].textContent = serat.toFixed(1);
+        cells[8].textContent = natrium.toFixed(1);
+        cells[9].textContent = kolesterol.toFixed(1);
+        cells[10].textContent = gula.toFixed(1);
+
+        updateNutrition();
+        updateTotalCost();
+    }
+
+    function formatRupiah(input) {
+        let value = input.value.replace(/[^0-9]/g, '');
+    
+        if (value) {
+            // Format ribuan
+            value = new Intl.NumberFormat('id-ID').format(value);
+            input.value = `Rp ${value}`;
+        } else {
+            input.value = '';
+        }
+    }
+
+    function updateTotalCost() {
+        let totalCost = 0;
+
+        // ambil semua row <tr>
+        tableBodyIngredient.querySelectorAll("tr").forEach(row => {
+            const cells = row.getElementsByTagName("td");
+            if (cells.length >= 3) {
+                const priceInput = cells[2].querySelector("input");
+                if (priceInput && priceInput.value) {
+                    const number = parseFloat(priceInput.value.replace(/[^0-9]/g, '')) || 0;
+                    totalCost += number;
+                }
+            }
+        });
+
+        // update ke element
+        const totalCostElement = document.getElementById("total-cost");
+        if (totalCostElement) {
+            totalCostElement.innerHTML = `Rp ${new Intl.NumberFormat('id-ID').format(totalCost)} <span class="font-bold text-green-700 bg-green-100 rounded-full px-3 py-1 ml-2">Low</span>`;
+        }
+    }
+
+    function updateNutrition() {
+        let totalEnergi = 0,
+            totalProtein = 0,
+            totalKarbo = 0,
+            totalLemak = 0,
+            totalSerat = 0,
+            totalNatrium = 0,
+            totalKolesterol = 0,
+            totalGula = 0;
+    
+        tableBodyIngredient.querySelectorAll("tr").forEach(row => {
+            const cells = row.getElementsByTagName("td");
+            if (cells.length >= 11) {
+                totalEnergi     += parseFloat(cells[3].textContent) || 0;
+                totalProtein    += parseFloat(cells[4].textContent) || 0;
+                totalKarbo      += parseFloat(cells[5].textContent) || 0;
+                totalLemak      += parseFloat(cells[6].textContent) || 0;
+                totalSerat      += parseFloat(cells[7].textContent) || 0;
+                totalNatrium    += parseFloat(cells[8].textContent) || 0;
+                totalKolesterol += parseFloat(cells[9].textContent) || 0;
+                totalGula       += parseFloat(cells[10].textContent) || 0;
+            }
+        });
+    
+
+        const nutritionBox = document.querySelector(".flex .bg-gray-100.border"); 
+        if (nutritionBox) {
+            const pTags = nutritionBox.querySelectorAll("p.text-sm.font-bold");
+            if (pTags.length >= 8) {
+                pTags[0].textContent = `${totalEnergi.toFixed(1)} kKal`;
+                pTags[1].textContent = `${totalProtein.toFixed(1)} gr`;
+                pTags[2].textContent = `${totalKarbo.toFixed(1)} gr`;
+                pTags[3].textContent = `${totalLemak.toFixed(1)} gr`;
+                pTags[4].textContent = `${totalSerat.toFixed(1)} gr`;
+                pTags[5].textContent = `${totalNatrium.toFixed(1)} mg`;
+                pTags[6].textContent = `${totalKolesterol.toFixed(1)} mg`;
+                pTags[7].textContent = `${totalGula.toFixed(1)} gr`;
+            }
+        }
+    }
+
 
     const uploadBox = document.getElementById("upload-image");
     const fileInput = document.getElementById("file-input");
@@ -756,5 +960,6 @@ $this->title = 'Section Creation';
         wrapper.appendChild(preview);
         uploadBox.appendChild(wrapper);
     });
+    
 </script>
 <?php $this->endBlock(); ?>
