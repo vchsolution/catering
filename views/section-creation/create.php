@@ -344,40 +344,72 @@ $this->title = 'Section Creation';
                     <div class="p-4 w-96 h-full">
                         <h4 class="text-lg font-bold"> <i class="fa-solid fa-flask text-[#F16251] mr-4"></i>Nutrition</h4>
                     </div>
-                    
-                    <div class="p-4 w-24 border-r border-l border-gray-300 h-full text-center">
-                        <p class="text-xs text-gray-500">Energi</p>
-                        <p class="text-sm font-bold text-gray-800 mt-2">0 kKal</p>
+
+                    <div class="flex flex-1">
+                        <div class="p-4 flex-1 border-l border-r border-gray-300 text-center">
+                            <p class="text-xs text-gray-500">Energi</p>
+                            <div class="flex justify-center items-baseline mt-2 gap-1">
+                                <span class="text-sm font-bold text-gray-800">0</span>
+                                <span class="text-xs text-gray-500">kKal</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 flex-1 border-r border-gray-300 text-center">
+                            <p class="text-xs text-gray-500">Protein</p>
+                            <div class="flex justify-center items-baseline mt-2 gap-1">
+                                <span class="text-sm font-bold text-gray-800">0</span>
+                                <span class="text-xs text-gray-500">gr</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 flex-1 border-r border-gray-300 text-center">
+                            <p class="text-xs text-gray-500">Carbo</p>
+                            <div class="flex justify-center items-baseline mt-2 gap-1">
+                                <span class="text-sm font-bold text-gray-800">0</span>
+                                <span class="text-xs text-gray-500">gr</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 flex-1 border-r border-gray-300 text-center">
+                            <p class="text-xs text-gray-500">Fat</p>
+                            <div class="flex justify-center items-baseline mt-2 gap-1">
+                                <span class="text-sm font-bold text-gray-800">0</span>
+                                <span class="text-xs text-gray-500">gr</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 flex-1 border-r border-gray-300 text-center">
+                            <p class="text-xs text-gray-500">Serat</p>
+                            <div class="flex justify-center items-baseline mt-2 gap-1">
+                                <span class="text-sm font-bold text-gray-800">0</span>
+                                <span class="text-xs text-gray-500">gr</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 flex-1 border-r border-gray-300 text-center">
+                            <p class="text-xs text-gray-500">Natrium</p>
+                            <div class="flex justify-center items-baseline mt-2 gap-1">
+                                <span class="text-sm font-bold text-gray-800">0</span>
+                                <span class="text-xs text-gray-500">mg</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 flex-1 border-r border-gray-300 text-center">
+                            <p class="text-xs text-gray-500">Kolesterol</p>
+                            <div class="flex justify-center items-baseline mt-2 gap-1">
+                                <span class="text-sm font-bold text-gray-800">0</span>
+                                <span class="text-xs text-gray-500">mg</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 flex-1 text-center">
+                            <p class="text-xs text-gray-500">Gula</p>
+                            <div class="flex justify-center items-baseline mt-2 gap-1">
+                                <span class="text-sm font-bold text-gray-800">0</span>
+                                <span class="text-xs text-gray-500">gr</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="p-4 w-24 border-r border-gray-300 h-full text-center">
-                        <p class="text-xs text-gray-500">Protein</p>
-                        <p class="text-sm font-bold text-gray-800 mt-2">0 gr</p>
-                    </div>
-                    <div class="p-4 w-24 border-r border-gray-300 h-full text-center">
-                        <p class="text-xs text-gray-500">Carbo</p>
-                        <p class="text-sm font-bold text-gray-800 mt-2">0 gr</p>
-                    </div>
-                    <div class="p-4 w-24 border-r border-gray-300 h-full text-center">
-                        <p class="text-xs text-gray-500">Fat</p>
-                        <p class="text-sm font-bold text-gray-800 mt-2">0 gr</p>
-                    </div>
-                    <div class="p-4 w-24 border-r border-gray-300 h-full text-center">
-                        <p class="text-xs text-gray-500">Serat</p>
-                        <p class="text-sm font-bold text-gray-800 mt-2">0 gr</p>
-                    </div>
-                    <div class="p-4 w-24 border-r border-gray-300 h-full text-center">
-                        <p class="text-xs text-gray-500">Natrium</p>
-                        <p class="text-sm font-bold text-gray-800 mt-2">0 mg</p>
-                    </div>
-                    <div class="p-4 w-24 border-r border-gray-300 h-full text-center">
-                        <p class="text-xs text-gray-500">Kolesterol</p>
-                        <p class="text-sm font-bold text-gray-800 mt-2">0 mg</p>
-                    </div>
-                    <div class="p-4 w-24 border-gray-300 h-full text-center">
-                        <p class="text-xs text-gray-500">Gula</p>
-                        <p class="text-sm font-bold text-gray-800 mt-2">0 gr</p>
-                    </div>
-                    
                 </div>
 
                 <div class="flex items-center justify-between flex-wrap gap-y-4 bg-gray-100 border border-gray-300 rounded-lg">
@@ -891,7 +923,7 @@ $this->title = 'Section Creation';
             totalNatrium = 0,
             totalKolesterol = 0,
             totalGula = 0;
-    
+
         tableBodyIngredient.querySelectorAll("tr").forEach(row => {
             const cells = row.getElementsByTagName("td");
             if (cells.length >= 11) {
@@ -905,24 +937,22 @@ $this->title = 'Section Creation';
                 totalGula       += parseFloat(cells[10].textContent) || 0;
             }
         });
-    
 
-        const nutritionBox = document.querySelector(".flex .bg-gray-100.border"); 
+        const nutritionBox = document.querySelector(".flex .flex-1");
         if (nutritionBox) {
-            const pTags = nutritionBox.querySelectorAll("p.text-sm.font-bold");
-            if (pTags.length >= 8) {
-                pTags[0].textContent = `${totalEnergi.toFixed(1)} kKal`;
-                pTags[1].textContent = `${totalProtein.toFixed(1)} gr`;
-                pTags[2].textContent = `${totalKarbo.toFixed(1)} gr`;
-                pTags[3].textContent = `${totalLemak.toFixed(1)} gr`;
-                pTags[4].textContent = `${totalSerat.toFixed(1)} gr`;
-                pTags[5].textContent = `${totalNatrium.toFixed(1)} mg`;
-                pTags[6].textContent = `${totalKolesterol.toFixed(1)} mg`;
-                pTags[7].textContent = `${totalGula.toFixed(1)} gr`;
+            const valueSpans = nutritionBox.querySelectorAll("div.flex span:first-child"); // span pertama di tiap flex = angka
+            if (valueSpans.length >= 8) {
+                valueSpans[0].textContent = totalEnergi.toFixed(1);
+                valueSpans[1].textContent = totalProtein.toFixed(1);
+                valueSpans[2].textContent = totalKarbo.toFixed(1);
+                valueSpans[3].textContent = totalLemak.toFixed(1);
+                valueSpans[4].textContent = totalSerat.toFixed(1);
+                valueSpans[5].textContent = totalNatrium.toFixed(1);
+                valueSpans[6].textContent = totalKolesterol.toFixed(1);
+                valueSpans[7].textContent = totalGula.toFixed(1);
             }
         }
     }
-
 
     const uploadBox = document.getElementById("upload-image");
     const fileInput = document.getElementById("file-input");
