@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Block akses langsung ke folder sensitif
+RedirectMatch 403 ^/(config|vendor|runtime|tests|commands|migrations)/.*
+
+# Kalau file atau folder ada, langsung akses
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Kalau tidak ada, lempar ke index.php
+RewriteRule . index.php [L]

@@ -7,7 +7,7 @@ $this->title = 'Login';
 <div class="max-w-[340px] w-full space-y-6">
     <!-- Logo -->
     <img
-        src="<?= Yii::$app->request->baseUrl ?>/images/logo.png"
+        src="<?= Yii::$app->request->baseUrl ?>/web/images/logo.png"
         alt="Logo"
         class="h-[54px] w-[90px]"
     />

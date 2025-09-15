@@ -38,7 +38,7 @@ use yii\helpers\Html;
         <div class="w-full h-screen bg-light shadow-lg flex flex-col md:flex-row overflow-hidden p-2 gap-2">
             <!-- Left Image -->
             <img
-                src="<?= Yii::$app->request->baseUrl ?>/images/login-image.png"
+                src="<?= Yii::$app->request->baseUrl ?>/web/images/login-image.png"
                 alt="Logo"
                 class="hidden md:flex max-w-full h-[100%] object-contain"
             />

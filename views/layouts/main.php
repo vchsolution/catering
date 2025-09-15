@@ -104,7 +104,7 @@ use yii\helpers\Html;
         <header class="bg-white">
             <div class="w-[100%] px-4 py-3 flex items-center justify-between">
                 <div class="flex items-center">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/images/logo.png" alt="Logo" class="h-8 w-auto mr-4">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/web/images/logo.png" alt="Logo" class="h-8 w-auto mr-4">
                 </div>
 
                 <div class="flex items-center space-x-6">
@@ -133,7 +133,7 @@ use yii\helpers\Html;
 
                     <div class="flex items-center space-x-2 cursor-pointer group">
                         <div class="h-12 w-12 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
-                            <img src="<?= Yii::$app->request->baseUrl ?>/images/boy.png" alt="User Avatar"
+                            <img src="<?= Yii::$app->request->baseUrl ?>/web/images/boy.png" alt="User Avatar"
                                 class="h-full w-full object-cover">
                         </div>
                         <div class="text-sm pl-3">
