@@ -447,7 +447,7 @@ use yii\helpers\Html;
                     }
                 });
             }
-        
+
             // Init dropdown untuk yang sudah ada di DOM
             document.querySelectorAll('.select-box[data-dropdown="true"]').forEach(initDropdown);
         
@@ -477,6 +477,213 @@ use yii\helpers\Html;
             // 🔑 Hook supaya bisa dipanggil setelah addRowComplimentary
             window.initDropdown = initDropdown;
         });
+
+        class MultipleSelect {
+            constructor(container) {
+                this.container = container;
+                this.selectedItems = [];
+                this.allOptions = [];
+                this.highlightedIndex = -1;
+
+                this.input = container.querySelector('.main-input');
+                this.dropdown = container.querySelector('.options-dropdown');
+                this.tagsContainer = container.querySelector('.tags-container');
+                this.selectContainer = container.querySelector('.select-input-container');
+
+                this.init();
+            }
+
+            init() {
+                const options = this.container.querySelectorAll('.option-item');
+                this.allOptions = Array.from(options).map(option => ({
+                    element: option,
+                    text: option.textContent.trim(),
+                    value: option.getAttribute('data-value')
+                }));
+
+                this.selectContainer.addEventListener('click', () => this.focusInput());
+                this.input.addEventListener('input', () => this.handleInput());
+                this.input.addEventListener('focus', () => this.showDropdown());
+                this.input.addEventListener('keydown', (e) => this.handleKeydown(e));
+
+                this.allOptions.forEach(option => {
+                    option.element.addEventListener('click', () => this.selectOption(option.element));
+                });
+
+                this.updateTags();
+
+                // Klik di luar → tutup dropdown
+                document.addEventListener('click', (e) => {
+                    if (!this.container.contains(e.target) && !this.dropdown.contains(e.target)) {
+                        this.hideDropdown();
+                    }
+                });
+            }
+
+            focusInput() {
+                this.input.focus();
+                this.filterOptions(this.input.value.toLowerCase());
+                this.showDropdown();
+            }
+
+            handleInput() {
+                this.filterOptions(this.input.value.toLowerCase());
+                this.showDropdown();
+                this.highlightedIndex = -1;
+                this.updateHighlight();
+            }
+
+            handleKeydown(event) {
+                const visibleOptions = this.allOptions.filter(o => o.element.style.display !== 'none');
+                switch(event.key) {
+                    case 'Enter':
+                        event.preventDefault();
+                        if (this.highlightedIndex >= 0 && visibleOptions[this.highlightedIndex]) {
+                            this.selectOption(visibleOptions[this.highlightedIndex].element);
+                        }
+                        break;
+                    case 'ArrowDown':
+                        event.preventDefault();
+                        this.highlightedIndex = Math.min(this.highlightedIndex + 1, visibleOptions.length - 1);
+                        this.updateHighlight();
+                        break;
+                    case 'ArrowUp':
+                        event.preventDefault();
+                        this.highlightedIndex = Math.max(this.highlightedIndex - 1, 0);
+                        this.updateHighlight();
+                        break;
+                    case 'Escape':
+                        this.hideDropdown();
+                        break;
+                    case 'Backspace':
+                        if (this.input.value === '' && this.selectedItems.length > 0) {
+                            this.removeLastTag();
+                        }
+                        break;
+                }
+            }
+
+            updateHighlight() {
+                this.allOptions.forEach(option => option.element.classList.remove('bg-blue-50'));
+                const visibleOptions = this.allOptions.filter(o => o.element.style.display !== 'none');
+                if (this.highlightedIndex >= 0 && visibleOptions[this.highlightedIndex]) {
+                    visibleOptions[this.highlightedIndex].element.classList.add('bg-blue-50');
+                }
+            }
+
+            updateDropdownPosition() {
+                const rect = this.input.getBoundingClientRect();
+                this.dropdown.style.top = `${rect.bottom + window.scrollY + 20}px`; // jarak 8px
+                this.dropdown.style.left = `${rect.left + window.scrollX}px`;
+                this.dropdown.style.width = `${rect.width}px`;
+            }
+
+            selectOption(element) {
+                const value = element.getAttribute('data-value');
+                const text = element.textContent.trim();
+
+                if (!this.selectedItems.find(item => item.value === value)) {
+                    this.selectedItems.push({ value, text });
+                    this.updateTags();
+                    element.style.display = 'none';
+                }
+
+                this.input.value = '';
+                this.filterOptions('');
+                this.highlightedIndex = -1;
+                this.input.focus();
+            }
+
+            updateTags() {
+                this.tagsContainer.innerHTML = '';
+                this.selectedItems.forEach(item => {
+                    const tag = document.createElement('span');
+                    tag.className = 'inline-flex items-center gap-1 bg-red-500 text-white px-2 py-1 rounded text-xs';
+                    tag.innerHTML = `<span>${item.text}</span><button type="button" class="remove-tag" data-value="${item.value}">×</button>`;
+                    this.tagsContainer.appendChild(tag);
+
+                    tag.querySelector('.remove-tag').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.removeTag(item.value);
+                    });
+                });
+                this.updateDropdownPosition();
+            }
+
+            removeTag(value) {
+                this.selectedItems = this.selectedItems.filter(i => i.value !== value);
+                const option = this.allOptions.find(o => o.value === value);
+                if (option) option.element.style.display = 'block';
+                this.updateTags();
+            }
+
+            removeLastTag() {
+                if (this.selectedItems.length === 0) return;
+                const removed = this.selectedItems.pop();
+                const option = this.allOptions.find(o => o.value === removed.value);
+                if (option) option.element.style.display = 'block';
+                this.updateTags();
+            }
+
+            showDropdown() {
+                // Hitung posisi relatif ke viewport agar muncul di luar tabel
+                const rect = this.input.getBoundingClientRect();
+                this.dropdown.style.position = 'absolute';
+                this.dropdown.style.top = `${rect.bottom + window.scrollY + 20}px`; // jarak 8px di bawah input
+                this.dropdown.style.left = `${rect.left + window.scrollX}px`;
+                this.dropdown.style.width = `${rect.width}px`;
+                this.dropdown.style.zIndex = 9999;
+                document.body.appendChild(this.dropdown);
+                this.dropdown.classList.remove('hidden');
+                this.updateDropdownPosition();
+            }
+
+            hideDropdown() {
+                this.dropdown.classList.add('hidden');
+                this.highlightedIndex = -1;
+            }
+
+            filterOptions(searchTerm) {
+                let visibleCount = 0;
+                this.allOptions.forEach(option => {
+                    const isSelected = this.selectedItems.find(i => i.value === option.value);
+                    const matches = searchTerm === '' || option.text.toLowerCase().includes(searchTerm);
+                    if (!isSelected && matches) {
+                        option.element.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        option.element.style.display = 'none';
+                    }
+                });
+                return visibleCount;
+            }
+
+            clearAll() {
+                this.selectedItems = [];
+                this.updateTags();
+                this.allOptions.forEach(o => o.element.style.display = 'block');
+                this.input.value = '';
+            }
+
+            getValues() {
+                return this.selectedItems.map(i => i.value);
+            }
+
+            setValues(values) {
+                this.clearAll();
+                values.forEach(v => {
+                    const option = this.allOptions.find(o => o.value === v);
+                    if (option) this.selectOption(option.element);
+                });
+            }
+        }
+
+        // Inisialisasi MultipleSelect di tabel
+        function initMultipleSelect(container) {
+            const instance = new MultipleSelect(container);
+        }
+
+        document.addEventListener('DOMContentLoaded', initMultipleSelect);
     </script>
     <?php if (isset($this->blocks['scripts'])): ?>
         <?= $this->blocks['scripts'] ?>

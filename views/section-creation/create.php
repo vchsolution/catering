@@ -706,9 +706,44 @@ $this->title = 'Section Creation';
                 <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
                 <td class="py-4 px-2 whitespace-nowrap text-center text-gray-500">-</td>
                 <td class="py-4 px-2 whitespace-nowrap">
-                <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400">
-                    <input type="text" class="w-full outline-none sm:text-sm">
+                <div class="multiple-select-container">
+                <div class="relative">
+            <!-- Main Input Container -->
+            <div class="rounded-md border border-gray-300 p-2 focus-within:border-[#197953] focus-within:ring-2 focus-within:ring-emerald-400 bg-white min-h-[42px] flex flex-wrap gap-1 items-center cursor-text select-input-container">
+                <!-- Selected Tags -->
+                <div class="tags-container flex flex-wrap gap-1">
+                    <!-- Tags akan muncul di sini -->
                 </div>
+
+                <!-- Input untuk mengetik -->
+                <input
+                        type="text"
+                        class="main-input outline-none sm:text-sm flex-1 min-w-[120px] border-none p-0"
+                        placeholder="Ketik untuk mencari kategori..."
+                        autocomplete="off"
+                >
+            </div>
+
+            <!-- Options Dropdown -->
+            <div class="options-dropdown absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-md shadow-lg z-10 hidden max-h-48 overflow-y-auto">
+                <div class="option-item p-2 hover:bg-[#197953] cursor-pointer border-gray-100 text-sm" data-value="elektronik">
+                    Elektronik
+                </div>
+                <div class="option-item p-2 hover:bg-[#197953] cursor-pointer border-gray-100 text-sm" data-value="fashion">
+                    Fashion
+                </div>
+                <div class="option-item p-2 hover:bg-[#197953] cursor-pointer border-gray-100 text-sm" data-value="makanan">
+                    Makanan & Minuman
+                </div>
+                <div class="option-item p-2 hover:bg-[#197953] cursor-pointer border-gray-100 text-sm" data-value="olahraga">
+                    Olahraga
+                </div>
+                <div class="option-item p-2 hover:bg-[#197953] cursor-pointer text-sm" data-value="kesehatan">
+                    Kesehatan & Kecantikan
+                </div>
+            </div>
+        </div>
+    </div>
                 </td>
                 <td class="py-4 px-2 whitespace-nowrap text-right text-sm font-medium">
                 <button type="button" onclick="deleteRowIngredient(this)"  class="text-gray-400 hover:text-red-500">
@@ -719,8 +754,10 @@ $this->title = 'Section Creation';
 
         tableBodyIngredient.appendChild(tr);
         const newSelectBox = tr.querySelector('.select-box[data-dropdown="true"]');
+        const newMultipleSelect = tr.querySelector('.multiple-select-container');
         if (newSelectBox) {
             initDropdown(newSelectBox);
+            initMultipleSelect(newMultipleSelect)
         }
 
         if (!document.getElementById("add-ingredient")) {
@@ -990,6 +1027,5 @@ $this->title = 'Section Creation';
         wrapper.appendChild(preview);
         uploadBox.appendChild(wrapper);
     });
-    
 </script>
 <?php $this->endBlock(); ?>
